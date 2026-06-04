@@ -1,0 +1,62 @@
+/* Styles are now handled via Tailwind CSS in App.tsx */
+  margin-bottom: 20px;
+}
+
+.status-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.status-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.url {
+  font-size: 12px;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 15px;
+}
+
+.score-box {
+  background: #f0f0f0;
+  padding: 8px;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.ai-badge {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #007bff;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.actions button {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  width: 100%;
+}
+
+.actions button:hover {
+  background: #555;
+}

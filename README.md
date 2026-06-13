@@ -1,6 +1,6 @@
 # ScamShield
 
-![ScamShield](public/scamshield.png)
+![ScamShield](scamshield-banner.png)
 
 A browser extension that detects phishing and scam websites using on-device machine learning inference (TensorFlow.js) combined with URL heuristics. No data leaves your browser.
 

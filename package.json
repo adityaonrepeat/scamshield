@@ -2,7 +2,7 @@
   "name": "scamshield",
   "description": "ScamShield - Browser extension for detecting phishing and scam websites",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",

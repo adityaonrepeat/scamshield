@@ -28,11 +28,9 @@ export default defineContentScript({
         position: 'inline',
         onMount(uiContainer: HTMLElement, shadow: ShadowRoot, shadowHost: any) {
           shadowHost.style.zIndex = '2147483647';
-          // Determine styles based on mode
           const wrapper = document.createElement('div');
           
           if (mode === 'red') {
-            // Full screen overlay - Modern Dark Mode
             wrapper.className = "fixed inset-0 w-screen h-screen bg-background/95 backdrop-blur-sm flex justify-center items-center z-[2147483647]";
             wrapper.innerHTML = `
               <div class="bg-card text-card-foreground border border-border p-8 rounded-lg max-w-xl text-center shadow-2xl animate-in fade-in zoom-in duration-300">
@@ -54,7 +52,7 @@ export default defineContentScript({
                   
                   <div class="flex flex-col sm:flex-row justify-center gap-4">
                     <button id="ss-back" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full sm:w-auto">
-                        Go Back Safety
+                        Go Back to Safety
                     </button>
                     <button id="ss-proceed" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full sm:w-auto">
                         Proceed (Risky)
@@ -72,7 +70,6 @@ export default defineContentScript({
             });
 
           } else if (mode === 'yellow') {
-             // Small alert box - Modern Dark Mode
              wrapper.className = "fixed top-5 right-5 w-[380px] bg-card text-card-foreground border border-border rounded-lg p-0 shadow-lg z-[2147483647] animate-in slide-in-from-right duration-500";
              wrapper.innerHTML = `
                 <div class="p-6">
@@ -129,20 +126,17 @@ export default defineContentScript({
         console.log("ScamShield: Running analysis...");
         const result = await analyzeURL(window.location.href, document);
         
-        // Cache result for popup
         browser.runtime.sendMessage({ action: "cacheAnalysisResult", data: result });
         
         showAlert(result);
     }
 
-    // Run on load
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', runAnalysis);
     } else {
         runAnalysis();
     }
 
-    // Listen for messages
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.action === 'reanalyzePage') {
             runAnalysis();

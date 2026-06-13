@@ -14,7 +14,7 @@ function App() {
       try {
         const res = await browser.runtime.sendMessage({ action: 'getStatusPopup' });
         if (res) {
-          setStatus(res); // assuming res matches AnalysisResult structure roughly or exactly
+          setStatus(res);
         }
       } catch (e) {
         console.error("Popup error", e);
@@ -29,13 +29,10 @@ function App() {
     setLoading(true);
     const tabs = await browser.tabs.query({ active: true, currentWindow: true });
     if(tabs.length > 0 && tabs[0].id) {
-        // Send message to content script to re-run analysis if supported, or just refresh
-        // For now assuming 'reanalyzePage' is handled by content script or background
         try {
             await browser.tabs.sendMessage(tabs[0].id, { action: 'reanalyzePage' });
         } catch(e) { console.warn("Content script might not be ready", e); }
         
-        // Simulating data refresh
         setTimeout(async () => {
             try {
                 const res = await browser.runtime.sendMessage({ action: 'getStatusPopup' });
@@ -100,7 +97,7 @@ function App() {
         </CardHeader>
         <CardContent className="space-y-4 text-center">
              <div className="flex justify-between items-center bg-muted/50 p-3 rounded-md">
-                 <span className="text-sm font-medium">Safety Score</span>
+                 <span className="text-sm font-medium">Risk Score</span>
                  <span className={cn("font-bold text-lg", getStatusColor())}>{status.score}/100</span>
              </div>
              

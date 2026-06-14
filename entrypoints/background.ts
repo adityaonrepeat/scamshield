@@ -3,7 +3,6 @@ export default defineBackground(() => {
   const LAST_ANALYSIS_KEY_PREFIX = 'scamShieldLastAnalysis_';
 
   browser.runtime.onMessage.addListener((message: any, sender, sendResponse) => {
-    // 1. Define the async work
     const handleMessage = async () => {
       if (message.action === 'cacheAnalysisResult') {
         const tabId = sender.tab?.id;
@@ -13,8 +12,7 @@ export default defineBackground(() => {
           console.log(`Cached analysis for tab ${tabId}`, message.data);
         }
       }
-      
-      // Handle getStatus from popup
+
       if (message.action === 'getStatusPopup') {
         const tabs = await browser.tabs.query({ active: true, currentWindow: true });
         if (tabs.length > 0 && tabs[0].id) {
@@ -25,12 +23,10 @@ export default defineBackground(() => {
       }
     };
 
-    // 2. Run it and send the response
     handleMessage().then(response => {
       if (typeof response !== 'undefined') sendResponse(response);
     });
 
-    // 3. Return true to keep the channel open
     return true;
   });
 

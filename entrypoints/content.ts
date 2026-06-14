@@ -20,8 +20,7 @@ export default defineContentScript({
 
       if (whitelisted || mode === 'green' || mode === 'error') return;
 
-      let details = `Score: ${score}`;
-      if(modelUsed) details += ` (ML: ${(modelPredictionRaw * 100).toFixed(0)}%)`;
+      const details = `Risk Score: ${score}/100`;
 
       ui = await createShadowRootUi(ctx, {
         name: 'scamshield-alert',

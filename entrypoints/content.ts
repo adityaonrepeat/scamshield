@@ -50,11 +50,11 @@ export default defineContentScript({
                       <div class="truncate">Host: ${features.hostname}</div>
                   </div>
                   
-                  <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button id="ss-back" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full sm:w-48">
+                  <div class="grid grid-cols-2 gap-4 w-full">
+                    <button id="ss-back" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-transparent bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 w-full">
                         Go Back to Safety
                     </button>
-                    <button id="ss-proceed" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full sm:w-48">
+                    <button id="ss-proceed" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 w-full">
                         Proceed (Risky)
                     </button>
                   </div>
@@ -80,8 +80,12 @@ export default defineContentScript({
                         </div>
                         <button id="ss-close" class="text-muted-foreground hover:text-foreground transition-colors text-lg leading-none">&times;</button>
                     </div>
-                    <div class="text-sm text-muted-foreground mb-4">
-                        ${details}
+                    <div class="bg-muted p-3 rounded-md mb-4 font-mono text-sm text-muted-foreground border border-border">
+                        <div class="flex justify-between mb-1">
+                            <span>Risk Score:</span>
+                            <span class="font-bold text-yellow-500">${score}/100</span>
+                        </div>
+                        ${modelUsed ? `<div class="flex justify-between"><span>AI Confidence:</span><span>${(modelPredictionRaw * 100).toFixed(0)}%</span></div>` : ''}
                     </div>
                 </div>
                 <div class="flex items-center p-6 pt-0 gap-2">
